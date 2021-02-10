@@ -28,7 +28,7 @@ import moment from "moment";
 import { user } from "../reducers/user";
 import { fetchActivities, postActivity, workout } from "../reducers/workout";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchWorkouts, postExercise } from "reducers/workout";
+import { fetchWorkouts, postExercise } from "../reducers/workout";
 
 const filter = createFilterOptions();
 

@@ -7,7 +7,7 @@ import {
 import { Provider, useSelector } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { user } from "./reducers/user";
-import { workout } from "reducers/workout";
+import { workout } from "./reducers/workout";
 import { Container, Paper } from "@material-ui/core";
 import App from "./App";
 

@@ -24,11 +24,11 @@ import {
   fetchActivities,
   fetchExercises,
   postActivity,
-  workout,
 } from "../reducers/workout";
+import { workout } from "../reducers/workout"
 //import { socketEvents } from "../reducers/user"
 import { useDispatch, useSelector } from "react-redux";
-import { fetchWorkouts } from "reducers/workout";
+import { fetchWorkouts } from "../reducers/workout";
 import ActivityForm from "./ActivityForm";
 import ActivityList from "./ActivityList";
 import UserList from "./UserList";

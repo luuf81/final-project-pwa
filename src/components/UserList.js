@@ -3,7 +3,7 @@ import { fetchUsers, user } from "../reducers/user";
 import { fetchActivities, postActivity, workout } from "../reducers/workout";
 import { followUser } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchWorkouts } from "reducers/workout";
+import { fetchWorkouts } from "../reducers/workout";
 import {
   Avatar,
   Badge,

@@ -8,9 +8,9 @@ import LoginForm from "./components/LoginForm";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { user } from "./reducers/user";
-import { workout } from "reducers/workout";
+import { workout } from "./reducers/workout";
 import { Container, Paper, Snackbar } from "@material-ui/core";
-import MainApp from "components/MainApp";
+import MainApp from "./components/MainApp";
 import io from "socket.io-client"
 import UserOnline from "./UserOnline"
 
