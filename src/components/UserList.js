@@ -106,7 +106,7 @@ export const UserList = () => {
             {!currentUser.followedUsers.find((item) => item === user._id) ? (
               <IconButton
                 aria-label="delete"
-                style={{ marginLeft: "100px" }}
+                //style={{ marginLeft: "100px" }}
                 onClick={(e) => handleFollowUser(user.name)}
               >
                 <PersonAdd />
@@ -114,10 +114,12 @@ export const UserList = () => {
             ) : (
               <IconButton
                   aria-label="delete"
-                  style={{ marginLeft: "100px" }}
+                  //style={{ marginLeft: "100px" }}
                   onClick={(e) => handleFollowUser(user.name)}
                 >
-                <People style={{ marginLeft: "100px" }} />
+                <People 
+                //style={{ marginLeft: "100px" }} 
+                />
                 </IconButton>
             )}
           </div>
@@ -141,7 +143,7 @@ export const UserList = () => {
               {!currentUser.followedUsers.find((item) => item === user._id) ? (
                 <IconButton
                   aria-label="delete"
-                  style={{ marginLeft: "100px" }}
+                  //style={{ marginLeft: "100px" }}
                   onClick={(e) => handleFollowUser(user.name)}
                 >
                   <PersonAdd />
@@ -149,10 +151,12 @@ export const UserList = () => {
               ) : (
                 <IconButton
                   aria-label="delete"
-                  style={{ marginLeft: "100px" }}
+                  //style={{ marginLeft: "100px" }}
                   onClick={(e) => handleFollowUser(user.name)}
                 >
-                <People style={{ marginLeft: "100px" }} />
+                <People 
+                //style={{ marginLeft: "100px" }} 
+                />
                 </IconButton>
               )}
             
