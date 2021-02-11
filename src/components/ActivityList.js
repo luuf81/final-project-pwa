@@ -61,9 +61,10 @@ export const ActivityList = () => {
         name="checkedA"
         inputProps={{ 'aria-label': 'secondary checkbox' }}
       />}label={all ? "Feed" : "Mine"}/>
+      {all && 
       <AvatarGroup max={4}>
       {allWorkouts.map(item => <Avatar className={classes.small} style={{ backgroundColor:"#FF5722"}}>{item.user.name.charAt(0)}</Avatar>)}
-    </AvatarGroup>
+    </AvatarGroup>}
       {/* <Paper> */}
         {(all ? allWorkouts : myWorkouts).map((item) => (
           <Box m={3}>
