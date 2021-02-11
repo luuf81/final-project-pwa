@@ -86,24 +86,20 @@ export const App = () => {
     //socket = io();
     
     socket = io("https://happyhabits.herokuapp.com/");
+    
     //socket = io("https://happyhabits.netlify.app");
     console.log(socket);
     socket.emit('user', accessToken)
   }
 
-  //useEffect(() => {
   if(socket)socket.on('user', userSocket => {
-    //if(userSocket._id !== loggedinUser) {
     console.log(userSocket.name + ': connected')
     dispatch(user.actions.setOnlineusers( userSocket.name ))
-    //setUseronline(true)
-    //setOpen(true)
-    //setUsername(user.name)
-    //username = user.name
-    //setOpen(true)
-    //}
   })
-//}, [userOnline])
+
+  if(socket)socket.on('activity', activity => {
+    console.log(activity)
+  })
 
   return (
     <Container className={classes.mainContainer}>

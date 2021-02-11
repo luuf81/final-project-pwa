@@ -57,7 +57,6 @@ export const user = createSlice({
 
 export const fetchUsers = () => {
   return (dispatch) => {
-    //console.log(localStorage.getItem('accessToken'))
     fetch("https://happyhabits.herokuapp.com/users", {
       method: "GET",
       headers: { Authorization: localStorage.getItem("accessToken") },
@@ -65,6 +64,7 @@ export const fetchUsers = () => {
       .then((res) => res.json())
       .then((users) => {
         dispatch(user.actions.setUsers(users));
+        dispatch(user.actions.setFollowedUsers(users.find(item => item._id === localStorage.userId).followedUsers))
       });
   };
 };
@@ -83,6 +83,19 @@ export const followUser = (userName) => {
         
         dispatch(user.actions.setFollowedUsers(userArray.followedUsers));
         
+      });
+  };
+};
+
+export const fetchFollowed = () => {
+  return (dispatch) => {
+    fetch("https://happyhabits.herokuapp.com/followuser", {
+      method: "GET",
+      headers: {'Content-Type': 'application/json', Authorization: localStorage.getItem('accessToken')},
+    })
+      .then((res) => res.json())
+      .then((userArray) => {
+        dispatch(user.actions.setFollowedUsers(userArray.followedUsers));
       });
   };
 };

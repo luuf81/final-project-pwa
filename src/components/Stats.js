@@ -39,57 +39,70 @@ export const Stats = () => {
     {
       muscle: "Chest",
       sets: 0,
+      allSets: 0
     },
     {
       muscle: "Shoulders",
       sets: 0,
+      allSets: 0
     },
     {
       muscle: "Triceps",
       sets: 0,
+      allSets: 0
     },
     {
       muscle: "Biceps",
       sets: 0,
+      allSets: 0
     },
     {
       muscle: "Back",
       sets: 0,
+      allSets: 0
     },
     {
       muscle: "Abs",
       sets: 0,
+      allSets: 0
     },
     {
       muscle: "Front Legs",
       sets: 0,
+      allSets: 0
     },
     {
       muscle: "Back Legs",
       sets: 0,
+      allSets: 0
     },
     {
       muscle: "Glutes",
       sets: 0,
+      allSets: 0
     },
     {
       muscle: "Calves",
       sets: 0,
+      allSets: 0
     },
   ] 
 
-  const dispatch = useDispatch();
+  
   const activities = useSelector((store) => store.workout.activities);
   const currentExercise = useSelector((store) => store.workout.currentExercise.name);
-  console.log(currentExercise)
-  const workouts = useSelector((store) => store.workout.workouts);
-  
+  const currentUser = useSelector((store) => store.user.login);
 
-  activities.forEach(item => {
-    const found = setsData.find(exercise => exercise.muscle == item.type.primaryMuscle)
-    found.sets += item.sets
-    
+  //const myActivities = activities.filter(item => item.user._id === currentUser.userId)
+  const allActivities = activities.filter(item => ((currentUser.followedUsers.find( user => user === item.user._id)) || item.user._id === currentUser.userId))
+
+  allActivities.forEach(item => {
+    const found = setsData.find(exercise => exercise.muscle === item.type.primaryMuscle)
+    if(item.user._id === currentUser.userId) found.sets += item.sets
+    else found.allSets += (item.sets / currentUser.followedUsers.length)
   })
+
+  console.log(setsData)
   
 
   const exerciseWeight = activities
@@ -136,10 +149,17 @@ export const Stats = () => {
         <PolarAngleAxis dataKey="muscle"  tick={customTick}/>
         <PolarRadiusAxis angle={30} domain={[0, 40]} />
         <Radar
-          name="Testuser"
+          name="Followed"
+          dataKey="allSets"
+          stroke="#FF5722"
+          fill="#FF5722"
+          fillOpacity={0.6}
+        />
+        <Radar
+          name="You"
           dataKey="sets"
-          stroke="#8884d8"
-          fill="#8884d8"
+          stroke="#90CAF9"
+          fill="#90CAF9"
           fillOpacity={0.6}
         />
         <Legend />
