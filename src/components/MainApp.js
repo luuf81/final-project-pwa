@@ -9,7 +9,7 @@ import {
   FormControl,
   Paper,
 } from "@material-ui/core";
-import { Folder, Restore, Favorite, LocationOn } from "@material-ui/icons";
+import { Folder, Restore, Favorite, LocationOn, Equalizer, FitnessCenter, Person } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import MomentUtils from "@date-io/moment";
 import {
@@ -140,17 +140,17 @@ export const MainApp = (props) => {
         <BottomNavigationAction
           label="Users"
           value="users"
-          icon={<Restore />}
+          icon={<Person />}
         />
         <BottomNavigationAction
           label="Activities"
           value="activities"
-          icon={<Favorite />}
+          icon={<FitnessCenter/>}
         />
         <BottomNavigationAction
           label="Stats"
           value="stats"
-          icon={<LocationOn />}
+          icon={<Equalizer />}
         />
       </BottomNavigation>
     </>
