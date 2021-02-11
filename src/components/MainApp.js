@@ -52,18 +52,21 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       // display: props => props.value === "users" ? "block" : "none",
       display: "block",
+      width: "100%"
     },
   },
   activitiesPaper: {
     [theme.breakpoints.down("sm")]: {
       // display: props => props.value === "activities" ? "block" : "none",
       display: "block",
+      width: "100%"
     },
   },
   statsPaper: {
     [theme.breakpoints.down("sm")]: {
       // display: props => props.value === "stats" ? "block" : "none",
       display: "block",
+      width: "100%"
     },
   },
   hiddenPaper: {
