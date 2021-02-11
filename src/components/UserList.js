@@ -112,7 +112,13 @@ export const UserList = () => {
                 <PersonAdd />
               </IconButton>
             ) : (
-              <People style={{ marginLeft: "100px" }} />
+              <IconButton
+                  aria-label="delete"
+                  style={{ marginLeft: "100px" }}
+                  onClick={(e) => handleFollowUser(user.name)}
+                >
+                <People style={{ marginLeft: "100px" }} />
+                </IconButton>
             )}
           </div>
         ) : (
@@ -141,7 +147,13 @@ export const UserList = () => {
                   <PersonAdd />
                 </IconButton>
               ) : (
+                <IconButton
+                  aria-label="delete"
+                  style={{ marginLeft: "100px" }}
+                  onClick={(e) => handleFollowUser(user.name)}
+                >
                 <People style={{ marginLeft: "100px" }} />
+                </IconButton>
               )}
             
           </div>
