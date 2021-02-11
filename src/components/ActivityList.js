@@ -4,13 +4,46 @@ import { user } from "../reducers/user";
 import { fetchActivities, postActivity, workout } from "../reducers/workout";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWorkouts } from "../reducers/workout";
-import { Box, Card, CardContent, Typography, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Avatar } from "@material-ui/core";
+import { Box, Switch, FormControlLabel, Card, CardContent, Typography, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Avatar } from "@material-ui/core";
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  small: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+  },
+  large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
+}));
 
 const URL = "https://happyhabits.herokuapp.com/users";
 export const ActivityList = () => {
+
+  const classes = useStyles();
+
   const dispatch = useDispatch();
   const activities = useSelector((store) => store.workout.activities);
   const workouts = useSelector((store) => store.workout.workouts);
+  const currentUser = useSelector((store) => store.user.login)
+
+  const myWorkouts = workouts.filter(item => item.user._id === currentUser.userId)
+  const allWorkouts = workouts.filter(item => currentUser.followedUsers.find( user => user === item.user._id))
+
+  const [all, setAll] = useState(true)
+
+  const handleSwitch = (event) => {
+    setAll(!all); //...state, [event.target.name]: event.target.checked }
+  };
+  console.log(all)
   
   //workouts.activities.map(item => console.log(item))
   //activities.map(item => console.log(item.user.name))
@@ -18,8 +51,21 @@ export const ActivityList = () => {
   return (
     
     <Box mt={10} style={{marginTop:"0"}}>
+      <FormControlLabel style={{width:"100%", justifyContent:"flex-end"}}
+      value="end"
+      control={
+       <Switch
+       color="primary"
+        checked={all}
+        onChange={handleSwitch}
+        name="checkedA"
+        inputProps={{ 'aria-label': 'secondary checkbox' }}
+      />}label={all ? "Feed" : "Mine"}/>
+      <AvatarGroup max={4}>
+      {allWorkouts.map(item => <Avatar className={classes.small} style={{ backgroundColor:"#FF5722"}}>{item.user.name.charAt(0)}</Avatar>)}
+    </AvatarGroup>
       {/* <Paper> */}
-        {workouts.map((item) => (
+        {(all ? allWorkouts : myWorkouts).map((item) => (
           <Box m={3}>
             {/* <Card >
               <CardContent> */}

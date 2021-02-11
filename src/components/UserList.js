@@ -20,7 +20,7 @@ import {
   TableCell,
   TableBody,
 } from "@material-ui/core";
-import { PersonAdd } from '@material-ui/icons';
+import { PersonAdd, People } from "@material-ui/icons";
 import io from "socket.io-client";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 
@@ -56,6 +56,7 @@ const StyledBadge = withStyles((theme) => ({
 export const UserList = () => {
   const dispatch = useDispatch();
   const activities = useSelector((store) => store.workout.activities);
+  const currentUser = useSelector((store) => store.user.login);
   const workouts = useSelector((store) => store.workout.workouts);
   const users = useSelector((store) => store.user.users);
   const onlineUsers = useSelector((store) => store.user.onlineUsers);
@@ -66,18 +67,26 @@ export const UserList = () => {
 
   const handleFollowUser = (userName) => {
     //e.preventDefault();
-    console.log('here')
-    dispatch(followUser(userName))
-  }
+    console.log("here");
+    dispatch(followUser(userName));
+  };
 
   return (
     <>
-      <Typography align="center" variant="h4">
-        Your gym buddies
+      <Typography align="center" variant="h5" style={{ margin: "20px" }}>
+        💪 Your gym buddies 💪
       </Typography>
-      {users.map((user) => 
-        onlineUsers.find((item) => item === user.name) ? 
-        <div style={{ display: "flex", alignItems: "center", margin: "5px" }}>
+      {users.map((user) =>
+        onlineUsers.find((item) => item === user.name) ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              margin: "5px",
+              justifyContent: "space-between",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center" }}>
               <StyledBadge
                 overlap="circle"
                 anchorOrigin={{
@@ -93,24 +102,50 @@ export const UserList = () => {
               <Typography style={{ marginLeft: "15px" }}>
                 {user.name}
               </Typography>
-        </div> :
-        <div style={{ display: "flex", alignItems: "center", margin: "5px", justifyContent:"space-between" }}>
-        
-          <Avatar style={{ backgroundColor: "#FF5722" }}>
-            {user.name.charAt(0)}
-          </Avatar>
-        
-        <Typography style={{ marginLeft: "15px" }}>
-          {user.name}
-        </Typography>
-        <IconButton aria-label="delete" style={{marginLeft:"100px"}}
-        onClick={(e) => handleFollowUser(user.name)}
-        >
-        <PersonAdd />
-      </IconButton>
-  </div>  
-        
-        
+            </div>
+            {!currentUser.followedUsers.find((item) => item === user._id) ? (
+              <IconButton
+                aria-label="delete"
+                style={{ marginLeft: "100px" }}
+                onClick={(e) => handleFollowUser(user.name)}
+              >
+                <PersonAdd />
+              </IconButton>
+            ) : (
+              <People style={{ marginLeft: "100px" }} />
+            )}
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              margin: "5px",
+              justifyContent: "space-between",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Avatar style={{ backgroundColor: "#FF5722" }}>
+                {user.name.charAt(0)}
+              </Avatar>
+              <Typography style={{ marginLeft: "15px" }}>
+                {user.name}
+              </Typography>
+              </div>
+              {!currentUser.followedUsers.find((item) => item === user._id) ? (
+                <IconButton
+                  aria-label="delete"
+                  style={{ marginLeft: "100px" }}
+                  onClick={(e) => handleFollowUser(user.name)}
+                >
+                  <PersonAdd />
+                </IconButton>
+              ) : (
+                <People style={{ marginLeft: "100px" }} />
+              )}
+            
+          </div>
+        )
       )}
     </>
   );

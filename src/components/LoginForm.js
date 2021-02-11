@@ -13,12 +13,15 @@ export const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   const handleLoginSuccess = (loginResponse) => {
+    console.log(loginResponse)
     localStorage.setItem('superToken', loginResponse.accessToken)
     dispatch(
       user.actions.setAccessToken({ accessToken: loginResponse.accessToken })
     );
     dispatch(user.actions.setUserId({ userId: loginResponse.userId }));
+    dispatch(user.actions.setFollowedUsers(loginResponse.followedUsers));
     dispatch(user.actions.setStatusMessage({ statusMessage: 'Login Success' }));
+
   };
 
   const handleLoginFailed = (loginError) => {

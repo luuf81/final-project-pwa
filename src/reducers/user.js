@@ -8,6 +8,7 @@ const initialState = {
     accessToken: localStorage.accessToken || null,
     userId: localStorage.userId || 0,
     statusMessage: "",
+    followedUsers: null || (localStorage.followedUsers && (localStorage.followedUsers.split(',')))
   },
 };
 
@@ -35,6 +36,11 @@ export const user = createSlice({
       console.log(`User Id: ${userId}`);
       state.login.userId = userId;
       localStorage.setItem("userId", userId);
+    },
+    setFollowedUsers: (state, action) => {
+      console.log(action.payload)
+      state.login.followedUsers = action.payload
+      localStorage.setItem("followedUsers", action.payload);
     },
     setStatusMessage: (state, action) => {
       const { statusMessage } = action.payload;
@@ -73,8 +79,9 @@ export const followUser = (userName) => {
       body: JSON.stringify({ name: userName }),
     })
       .then((res) => res.json())
-      .then((users) => {
-        dispatch(user.actions.setUsers(users));
+      .then((userArray) => {
+        
+        dispatch(user.actions.setFollowedUsers(userArray.followedUsers));
         
       });
   };
