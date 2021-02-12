@@ -32,21 +32,18 @@ export const workout = createSlice({
 
 export const fetchWorkouts = () => {
     return (dispatch) => {
-        console.log(localStorage.getItem('accessToken'))
         fetch("https://happyhabits.herokuapp.com/workouts", {
             method: 'GET',
             headers: { Authorization: localStorage.getItem('accessToken') },
           })
         .then(res => res.json())
         .then((workouts) => {
-            console.log(workouts)
             dispatch(workout.actions.setWorkouts(workouts))
         })
 }}
 
 export const fetchActivities = () => {
     return (dispatch) => {
-        console.log(localStorage.getItem('accessToken'))
         fetch("https://happyhabits.herokuapp.com/activities", {
             method: 'GET',
             headers: { Authorization: localStorage.getItem('accessToken') },
@@ -66,7 +63,6 @@ export const postActivity = (date, exercise, sets, reps, weight) => {
     })
     .then(res => res.json())
     .then((workouts) => {
-        console.log(workouts)
         dispatch(workout.actions.setWorkouts(workouts.workouts))
         dispatch(workout.actions.setActivities(workouts.activities))
     })
@@ -75,14 +71,12 @@ export const postActivity = (date, exercise, sets, reps, weight) => {
 
 export const fetchExercises = () => {
     return (dispatch) => {
-        console.log(localStorage.getItem('accessToken'))
         fetch("https://happyhabits.herokuapp.com/activitytypes", {
             method: 'GET',
             headers: { Authorization: localStorage.getItem('accessToken') },
           })
         .then(res => res.json())
         .then((exercises) => {
-            console.log(exercises)
             dispatch(workout.actions.setExercises(exercises))
         })
 }}

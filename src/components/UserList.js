@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchUsers, user } from "../reducers/user";
 import { fetchActivities, postActivity, workout } from "../reducers/workout";
-import { followUser } from "../reducers/user";
+import { followUser, unfollowUser } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWorkouts } from "../reducers/workout";
 import {
@@ -66,9 +66,11 @@ export const UserList = () => {
   }, [onlineUsers]);
 
   const handleFollowUser = (userName) => {
-    //e.preventDefault();
-    console.log("here");
     dispatch(followUser(userName));
+  };
+
+  const handleUnfollowUser = (userName) => {
+    dispatch(unfollowUser(userName));
   };
 
   return (
@@ -79,6 +81,7 @@ export const UserList = () => {
       {users.map((user) =>
         onlineUsers.find((item) => item === user.name) ? (
           <div
+            key={user._id}
             style={{
               display: "flex",
               alignItems: "center",
@@ -106,25 +109,22 @@ export const UserList = () => {
             {!currentUser.followedUsers.find((item) => item === user._id) ? (
               <IconButton
                 aria-label="delete"
-                //style={{ marginLeft: "100px" }}
                 onClick={(e) => handleFollowUser(user.name)}
               >
                 <PersonAdd />
               </IconButton>
             ) : (
               <IconButton
-                  aria-label="delete"
-                  //style={{ marginLeft: "100px" }}
-                  onClick={(e) => handleFollowUser(user.name)}
-                >
-                <People 
-                //style={{ marginLeft: "100px" }} 
-                />
-                </IconButton>
+                aria-label="delete"
+                onClick={(e) => handleUnfollowUser(user.name)}
+              >
+                <People />
+              </IconButton>
             )}
           </div>
         ) : (
           <div
+            key={user._id}
             style={{
               display: "flex",
               alignItems: "center",
@@ -139,34 +139,27 @@ export const UserList = () => {
               <Typography style={{ marginLeft: "15px" }}>
                 {user.name}
               </Typography>
-              </div>
-              {!currentUser.followedUsers.find((item) => item === user._id) ? (
-                <IconButton
-                  aria-label="delete"
-                  //style={{ marginLeft: "100px" }}
-                  onClick={(e) => handleFollowUser(user.name)}
-                >
-                  <PersonAdd />
-                </IconButton>
-              ) : (
-                <IconButton
-                  aria-label="delete"
-                  //style={{ marginLeft: "100px" }}
-                  onClick={(e) => handleFollowUser(user.name)}
-                >
-                <People 
-                //style={{ marginLeft: "100px" }} 
-                />
-                </IconButton>
-              )}
-            
+            </div>
+            {!currentUser.followedUsers.find((item) => item === user._id) ? (
+              <IconButton
+                aria-label="delete"
+                onClick={(e) => handleFollowUser(user.name)}
+              >
+                <PersonAdd />
+              </IconButton>
+            ) : (
+              <IconButton
+                aria-label="delete"
+                onClick={(e) => handleUnfollowUser(user.name)}
+              >
+                <People />
+              </IconButton>
+            )}
           </div>
         )
       )}
     </>
   );
 };
-
-//
 
 export default UserList;

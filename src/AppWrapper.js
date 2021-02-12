@@ -5,11 +5,11 @@ import {
   ThemeProvider,
 } from "@material-ui/core/styles";
 import { Provider, useSelector } from "react-redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import { user } from "./reducers/user";
-import { workout } from "./reducers/workout";
+import { configureStore, combineReducers } from "@reduxjs/toolkit"
 import { Container, Paper } from "@material-ui/core";
 import App from "./App";
+import { user } from "./reducers/user";
+import { workout } from "./reducers/workout";
 
 const URL = "https://happyhabits.herokuapp.com/users";
 

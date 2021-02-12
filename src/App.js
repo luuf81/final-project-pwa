@@ -1,28 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
-  createMuiTheme,
-  ThemeProvider,
+  createMuiTheme
 } from "@material-ui/core/styles";
-import LoginForm from "./components/LoginForm";
-import { Provider, useSelector, useDispatch } from "react-redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { useSelector, useDispatch } from "react-redux";
+import { Container } from "@material-ui/core";
+import io from "socket.io-client"
+
+import MainApp from "./components/MainApp";
 import { user } from "./reducers/user";
 import { workout } from "./reducers/workout";
-import { Container, Paper, Snackbar } from "@material-ui/core";
-import MainApp from "./components/MainApp";
-import io from "socket.io-client"
 import UserOnline from "./UserOnline"
-
-
-const URL = "https://happyhabits.herokuapp.com/users";
-
-// const reducer = combineReducers({
-//   user: user.reducer,
-//   workout: workout.reducer,
-// });
-
-// const store = configureStore({ reducer });
+import LoginForm from "./components/LoginForm";
 
 const theme = createMuiTheme({
   palette: {
@@ -49,51 +38,17 @@ const useStyles = makeStyles((theme) => ({
 export const App = () => {
   const classes = useStyles();
 
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  //const [username, setUsername] = useState(null)
-  
-  //const [open, setOpen] = useState(false)
-
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
-  //const loggedinUser = useSelector((store) => store.user.login.userId);
-  //const [userOnline, setUseronline] = useState(false)
 
-  // To sign up a user.
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    fetch(URL, {
-      method: "POST",
-      body: JSON.stringify({ name, password }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((json) => console.log(json))
-      .catch((err) => console.log("error:", err));
-  };
-
-  // const handleClose = (event, reason) => {
-  //   setOpen(false);
-  // };
-
+  //Socket client-side
   var socket;
-  console.log(accessToken)
-
   if (accessToken) {
-    //socket = io("http://localhost:8080");
-    //socket = io();
-    
     socket = io("https://happyhabits.herokuapp.com/");
-    
-    //socket = io("https://happyhabits.netlify.app");
-    console.log(socket);
     socket.emit('user', accessToken)
   }
 
   if(socket)socket.on('user', userSocket => {
-    console.log(userSocket.name + ': connected')
     dispatch(user.actions.setOnlineusers( userSocket.name ))
   })
 
@@ -105,7 +60,6 @@ export const App = () => {
     <Container className={classes.mainContainer}>
       {!accessToken && <LoginForm />}
       {accessToken && <MainApp />}
-      {/* {userOnline && <UserOnline/>} */}
       <UserOnline/>
     </Container>
   );

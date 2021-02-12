@@ -26,14 +26,12 @@ import {
   postActivity,
 } from "../reducers/workout";
 import { workout } from "../reducers/workout"
-//import { socketEvents } from "../reducers/user"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWorkouts } from "../reducers/workout";
 import ActivityForm from "./ActivityForm";
 import ActivityList from "./ActivityList";
 import UserList from "./UserList";
 import Stats from "./Stats";
-//import classes from "*.module.css";
 
 const URL = "https://happyhabits.herokuapp.com/users";
 
@@ -41,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     minHeight: "800px",
     width: "600px",
-    //padding: '0 30px',
     margin: "30px",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
@@ -50,28 +47,24 @@ const useStyles = makeStyles((theme) => ({
   },
   userPaper: {
     [theme.breakpoints.down("sm")]: {
-      // display: props => props.value === "users" ? "block" : "none",
       display: "block",
       width: "100%"
     },
   },
   activitiesPaper: {
     [theme.breakpoints.down("sm")]: {
-      // display: props => props.value === "activities" ? "block" : "none",
       display: "block",
       width: "100%"
     },
   },
   statsPaper: {
     [theme.breakpoints.down("sm")]: {
-      // display: props => props.value === "stats" ? "block" : "none",
       display: "block",
       width: "100%"
     },
   },
   hiddenPaper: {
     [theme.breakpoints.down("sm")]: {
-      // display: props => props.value === "stats" ? "block" : "none",
       display: "none",
     },
   },
@@ -81,7 +74,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     backgroundColor: "black",
     [theme.breakpoints.up("sm")]: {
-      // display: props => props.value === "stats" ? "block" : "none",
       display: "none",
     },
   },
@@ -95,10 +87,7 @@ export const MainApp = (props) => {
   const workouts = useSelector((store) => store.workout.workouts);
   const activities = useSelector((store) => store.workout.activities);
 
-  const [value, setValue] = React.useState("activities");
-  console.log(value);
-
-  console.log(props);
+  const [value, setValue] = useState("activities");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -108,11 +97,7 @@ export const MainApp = (props) => {
     dispatch(fetchExercises());
     dispatch(fetchWorkouts());
     dispatch(fetchActivities());
-    //dispatch(socketEvents())
   }, []);
-
-  // var socket = io('http://localhost:8080');
-  //     console.log(socket)
 
   return (
     <>

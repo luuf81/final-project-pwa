@@ -37,11 +37,8 @@ export const ActivityForm = () => {
   const dispatch = useDispatch();
   const exercises = useSelector((store) => store.workout.exercises);
 
-  //free solo state test
-  //const [value, setValue] = useState(useSelector((store) => store.workout.newExercise.name))
   const [value, setValue] = useState();
   
-
   const [open, toggleOpen] = useState(false);
 
   const handleClose = () => {
@@ -70,17 +67,11 @@ export const ActivityForm = () => {
       primary: dialogValue.primary,
       secondary: dialogValue.secondary,
     });
-    console.log(value);
-
     handleClose();
   };
 
-  //end free solo test
-
-  //new state
   const [date, setDate] = useState(moment(Date.now()).format("YYYY-MM-DD"));
   const [exercise, setExercise] = useState("benchpress");
-  // old select state const [inputValue, setInputValue] = React.useState("");
   const [sets, setSets] = useState(3);
   const [reps, setReps] = useState(8);
   const [weight, setWeight] = useState(60);
@@ -90,8 +81,6 @@ export const ActivityForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //setValue(this.inputRef.value)
-    console.log(value);
     dispatch(postActivity(date, value.name, sets, reps, weight));
     setExercise("benchpress");
     setReps(8);
@@ -121,26 +110,18 @@ export const ActivityForm = () => {
         <Grid
           container
           direction="column"
-          //alignItems="center"
           justify="center"
-          //style={{ minHeight: "100vh" }}
         >
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <KeyboardDatePicker
               disableToolbar
               variant="inline"
-              //fullWidth
-              // format="MM/DD/yyyy"
               format="YYYY-MM-DD"
               margin="normal"
               id="date-picker-inline"
               label="Activity date"
               value={date}
               onChange={
-                //       () => {
-                //     setDate(moment(date).format("YYYY-MM-DD"));
-                //     console.log(date);
-                //   }
                 handleDateChange
               }
               KeyboardButtonProps={{
@@ -169,8 +150,6 @@ export const ActivityForm = () => {
                   secondary: "",
                 });
               } else {
-                console.log(newValue);
-                console.log("breaking here");
                 if(newValue)dispatch(workout.actions.setCurrentExercise(newValue));
                 setValue(newValue);
               }
@@ -203,7 +182,7 @@ export const ActivityForm = () => {
             clearOnBlur
             handleHomeEndKeys
             renderOption={(option) => option.name}
-            //fullWidth
+            
             freeSolo
             renderInput={(params) => (
               <TextField
@@ -281,26 +260,6 @@ export const ActivityForm = () => {
                   <MenuItem value={'Glutes'}>Glutes</MenuItem>
                   <MenuItem value={'Calves'}>Calves</MenuItem>
                 </Select>
-                {/* <TextField
-                  margin="dense"
-                  id="name"
-                  value={dialogValue.primary}
-                  onChange={(event) =>
-                    setDialogValue({ ...dialogValue, primary: event.target.value })
-                  }
-                  label="primary"
-                  type="text"
-                />
-                <TextField
-                  margin="dense"
-                  id="name"
-                  value={dialogValue.secondary}
-                  onChange={(event) =>
-                    setDialogValue({ ...dialogValue, secondary: event.target.value })
-                  }
-                  label="secondary"
-                  type="text"
-                /> */}
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleClose} color="primary">
@@ -322,7 +281,6 @@ export const ActivityForm = () => {
             min={1}
             max={10}
             onChange={handleSetChange}
-            //onChange={(event) => setReps(event.target.value)}
             aria-labelledby="continuous-slider"
           />
           <Typography id="continuous-slider" gutterBottom>
@@ -335,7 +293,6 @@ export const ActivityForm = () => {
             min={1}
             max={20}
             onChange={handleRepChange}
-            //onChange={(event) => setReps(event.target.value)}
             aria-labelledby="continuous-slider"
           />
           <Typography id="continuous-slider" gutterBottom>
@@ -348,7 +305,6 @@ export const ActivityForm = () => {
             min={0}
             max={140}
             onChange={handleWeightChange}
-            //onChange={(event) => setReps(event.target.value)}
             aria-labelledby="continuous-slider"
           />
           <Button
@@ -366,18 +322,3 @@ export const ActivityForm = () => {
   );
 };
 export default ActivityForm;
-
-const top100Films = [
-  { title: "The Shawshank Redemption", year: 1994 },
-  { title: "The Godfather", year: 1972 },
-  { title: "The Godfather: Part II", year: 1974 },
-  { title: "The Dark Knight", year: 2008 },
-  { title: "12 Angry Men", year: 1957 },
-  { title: "Schindler's List", year: 1993 },
-  { title: "Pulp Fiction", year: 1994 },
-  { title: "The Lord of the Rings: The Return of the King", year: 2003 },
-  { title: "The Good, the Bad and the Ugly", year: 1966 },
-  { title: "Fight Club", year: 1999 },
-  { title: "The Lord of the Rings: The Fellowship of the Ring", year: 2001 },
-  { title: "Star Wars: Episode V - The Empire Strikes Back", year: 1980 },
-];

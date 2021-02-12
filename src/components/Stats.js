@@ -100,10 +100,7 @@ export const Stats = () => {
     const found = setsData.find(exercise => exercise.muscle === item.type.primaryMuscle)
     if(item.user._id === currentUser.userId) found.sets += item.sets
     else found.allSets += (item.sets / currentUser.followedUsers.length)
-  })
-
-  console.log(setsData)
-  
+  })  
 
   const exerciseWeight = activities
     .filter((item) => item.type.name === currentExercise)
@@ -112,9 +109,6 @@ export const Stats = () => {
   function formatXAxis(activityDate) {
     return moment(activityDate).format("ddd");
   }
-
-  //   bench.forEach(item => item.activityDate = moment(item.activityDate).format("ddd"))
-  //   console.log(bench)
 
   function customTick({ payload, x, y, textAnchor, stroke, radius }) {
     return (
@@ -128,7 +122,7 @@ export const Stats = () => {
           x={x}
           y={y}
           className="recharts-text recharts-polar-angle-axis-tick-value"
-          text-anchor={textAnchor}
+          textAnchor={textAnchor}
         >
           <tspan x={x} dy="0em">
             {payload.value}
@@ -137,8 +131,6 @@ export const Stats = () => {
       </g>
     );
   }
-
-  //style={{ fill: 'white' }}
 
   return (
     <>
@@ -164,26 +156,6 @@ export const Stats = () => {
         />
         <Legend />
       </RadarChart>
-      {/* <RadarChart outerRadius={90} width={350} height={350} data={data}>
-        <PolarGrid />
-        <PolarAngleAxis dataKey="subject" />
-        <PolarRadiusAxis angle={30} domain={[0, 150]} />
-        <Radar
-          name="Mike"
-          dataKey="A"
-          stroke="#8884d8"
-          fill="#8884d8"
-          fillOpacity={0.6}
-        />
-        <Radar
-          name="Lily"
-          dataKey="B"
-          stroke="#82ca9d"
-          fill="#82ca9d"
-          fillOpacity={0.6}
-        />
-        <Legend />
-      </RadarChart> */}
       {currentExercise && <>
       <Typography style={{margin:"30px"}}>Your recent {currentExercise} workout history </Typography>
       <LineChart width={300} height={250} data={exerciseWeight}>
