@@ -54,7 +54,7 @@ export const App = () => {
   })
 
   if(socket)socket.on('activity', activity => {
-    dispatch(workout.actions.setNewExercise(activity))
+    dispatch(workout.actions.setNewActivity(activity))
   })
 
   return (

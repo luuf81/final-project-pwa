@@ -28,6 +28,9 @@ export const workout = createSlice({
         setCurrentExercise: (state, action) => {
             state.currentExercise = action.payload
         },
+        setNewActivity: (state, action) => {
+            state.newActivity = action.payload
+        },
     }
 })
 
