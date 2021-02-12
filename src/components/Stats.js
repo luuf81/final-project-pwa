@@ -140,7 +140,7 @@ export const Stats = () => {
     <RadarChart outerRadius={90} width={350} height={300} data={setsData}>
         <PolarGrid />
         <PolarAngleAxis dataKey="muscle"  tick={customTick}/>
-        <PolarRadiusAxis angle={30} domain={[0, 40]} />
+        {/* <PolarRadiusAxis angle={30}/> */}
         <Radar
           name="Followed"
           dataKey="allSets"
