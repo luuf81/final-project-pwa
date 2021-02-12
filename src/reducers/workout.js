@@ -5,6 +5,7 @@ const initialState = {
     activities: [],
     exercises: [],
     newExercise: null,
+    newActivity: null,
     currentExercise: ""
 }
 

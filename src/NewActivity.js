@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 export const NewActivity = () => {
   const [open, setOpen] = useState(false);
 
-  const newActivity = useSelector((store) => store.workout.newExercise);
+  const newActivity = useSelector((store) => store.workout.newActivity);
 
   useEffect(() => {
     if (newActivity) setOpen(true);

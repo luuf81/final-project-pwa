@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   hiddenPaper: {
+    minWidth: "410px",
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
