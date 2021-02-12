@@ -95,6 +95,7 @@ export const Stats = () => {
 
   //const myActivities = activities.filter(item => item.user._id === currentUser.userId)
   const allActivities = activities.filter(item => ((currentUser.followedUsers.find( user => user === item.user._id)) || item.user._id === currentUser.userId))
+  const myActivities = activities.filter(item => item.user._id === currentUser.userId)
 
   allActivities.forEach(item => {
     const found = setsData.find(exercise => exercise.muscle === item.type.primaryMuscle)
@@ -102,7 +103,7 @@ export const Stats = () => {
     else found.allSets += (item.sets / currentUser.followedUsers.length)
   })  
 
-  const exerciseWeight = activities
+  const exerciseWeight = myActivities
     .filter((item) => item.type.name === currentExercise)
     .reverse();
 
@@ -159,7 +160,7 @@ export const Stats = () => {
       {currentExercise && <>
       <Typography style={{margin:"30px"}}>Your recent {currentExercise} workout history </Typography>
       <LineChart width={300} height={250} data={exerciseWeight}>
-        <Line type="monotone" dataKey="weight" stroke="#8884d8" />
+        <Line type="monotone" dataKey="weight" stroke="#90CAF9" strokeWidth={3}/>
         <CartesianGrid stroke="#ccc" />
         <XAxis dataKey="activityDate" tickFormatter={formatXAxis} />
         <YAxis />

@@ -4,7 +4,7 @@ const initialState = {
     workouts: [],
     activities: [],
     exercises: [],
-    newExercise: {},
+    newExercise: null,
     currentExercise: ""
 }
 

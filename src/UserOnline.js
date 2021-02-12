@@ -10,8 +10,11 @@ export const UserOnline = () => {
     const userOnline = useSelector((store) => store.user.onlineUsers[store.user.onlineUsers.length - 1]);
     
      useEffect(() => {
-         if(userOnline) setOpen(true)
+         if(userOnline) 
+           setOpen(true)
+           
      }, [userOnline])
+
 
     return (
         <>
@@ -23,7 +26,11 @@ export const UserOnline = () => {
             open={open}
             autoHideDuration={3000}
             onClose={() => setOpen(false)}
-            message={"user " + userOnline + " connected" }
+            message={
+              
+              "user " + userOnline + " connected" 
+              
+            }
           />
         </>
       );

@@ -12,6 +12,7 @@ import { user } from "./reducers/user";
 import { workout } from "./reducers/workout";
 import UserOnline from "./UserOnline"
 import LoginForm from "./components/LoginForm";
+import NewActivity from "./NewActivity";
 
 const theme = createMuiTheme({
   palette: {
@@ -53,7 +54,7 @@ export const App = () => {
   })
 
   if(socket)socket.on('activity', activity => {
-    console.log(activity)
+    dispatch(workout.actions.setNewExercise(activity))
   })
 
   return (
@@ -61,6 +62,7 @@ export const App = () => {
       {!accessToken && <LoginForm />}
       {accessToken && <MainApp />}
       <UserOnline/>
+      <NewActivity/>
     </Container>
   );
 };
