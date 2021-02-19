@@ -1,39 +1,22 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   BottomNavigation,
   BottomNavigationAction,
-  Container,
   Grid,
-  TextField,
-  FormControl,
   Paper,
 } from "@material-ui/core";
-import { Folder, Restore, Favorite, LocationOn, Equalizer, FitnessCenter, Person } from "@material-ui/icons";
+import { Equalizer, FitnessCenter, Person } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import MomentUtils from "@date-io/moment";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-import moment from "moment";
-import io from "socket.io-client"
-
-import { user } from "../reducers/user";
 import {
   fetchActivities,
   fetchExercises,
-  postActivity,
 } from "../reducers/workout";
-import { workout } from "../reducers/workout"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchWorkouts } from "../reducers/workout";
 import ActivityForm from "./ActivityForm";
 import ActivityList from "./ActivityList";
 import UserList from "./UserList";
 import Stats from "./Stats";
-
-const URL = "https://happyhabits.herokuapp.com/users";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -52,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   activitiesPaper: {
+    minWidth: "400px",
     [theme.breakpoints.down("sm")]: {
       display: "block",
       width: "100%"
@@ -85,9 +69,6 @@ export const MainApp = (props) => {
 
   const classes = useStyles(props);
 
-  const workouts = useSelector((store) => store.workout.workouts);
-  const activities = useSelector((store) => store.workout.activities);
-
   const [value, setValue] = useState("activities");
 
   const handleChange = (event, newValue) => {
@@ -98,7 +79,7 @@ export const MainApp = (props) => {
     dispatch(fetchExercises());
     dispatch(fetchWorkouts());
     dispatch(fetchActivities());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

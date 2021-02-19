@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import moment from "moment";
-import { user } from "../reducers/user";
-import { fetchActivities, postActivity, workout } from "../reducers/workout";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchWorkouts } from "../reducers/workout";
+import { useSelector } from "react-redux";
 import {
   Box,
   Switch,
   FormControlLabel,
-  Card,
-  CardContent,
   Typography,
-  Paper,
   TableContainer,
   Table,
   TableHead,
@@ -41,12 +35,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const URL = "https://happyhabits.herokuapp.com/users";
 export const ActivityList = () => {
+  
   const classes = useStyles();
 
-  const dispatch = useDispatch();
-  const activities = useSelector((store) => store.workout.activities);
   const workouts = useSelector((store) => store.workout.workouts);
   const currentUser = useSelector((store) => store.user.login);
   const users = useSelector((store) => store.user.users);

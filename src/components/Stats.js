@@ -1,22 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import moment from "moment";
-import { user } from "../reducers/user";
-import { fetchActivities, postActivity, workout } from "../reducers/workout";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchWorkouts } from "../reducers/workout";
+import { useSelector } from "react-redux";
 import {
-  Box,
-  Card,
-  CardContent,
   Container,
   Typography,
-  Paper,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
 } from "@material-ui/core";
 import {
   LineChart,
@@ -28,7 +15,6 @@ import {
   RadarChart,
   PolarGrid,
   PolarAngleAxis,
-  PolarRadiusAxis,
   Radar,
   Legend
 } from "recharts";
@@ -93,9 +79,12 @@ export const Stats = () => {
   const currentExercise = useSelector((store) => store.workout.currentExercise.name);
   const currentUser = useSelector((store) => store.user.login);
 
-  //const myActivities = activities.filter(item => item.user._id === currentUser.userId)
   const allActivities = activities.filter(item => ((currentUser.followedUsers.find( user => user === item.user._id)) || item.user._id === currentUser.userId))
   const myActivities = activities.filter(item => item.user._id === currentUser.userId)
+
+  const currentExerciseActivity = myActivities.filter(item => item.type.name === currentExercise)
+
+  //calculate average sets per muscle group for followed users and sets per muscle group for logged in user
 
   allActivities.forEach(item => {
     const found = setsData.find(exercise => exercise.muscle === item.type.primaryMuscle)
@@ -136,11 +125,11 @@ export const Stats = () => {
   return (
     <>
     <Container>
-    <Typography style={{marginTop:"30px"}}>Your muscle (im)balance compared to your followers</Typography>
+    <Typography style={{marginTop:"30px"}}>Your muscle (im)balance for logged activities compared to your followed users</Typography>
     <RadarChart outerRadius={90} width={350} height={300} data={setsData}>
         <PolarGrid />
         <PolarAngleAxis dataKey="muscle"  tick={customTick}/>
-        {/* <PolarRadiusAxis angle={30}/> */}
+
         <Radar
           name="Followed"
           dataKey="allSets"
@@ -157,7 +146,7 @@ export const Stats = () => {
         />
         <Legend />
       </RadarChart>
-      {currentExercise && <>
+      {(currentExercise && currentExerciseActivity.length !== 0) && <>
       <Typography style={{margin:"30px"}}>Your recent {currentExercise} workout history </Typography>
       <LineChart width={300} height={250} data={exerciseWeight}>
         <Line type="monotone" dataKey="weight" stroke="#90CAF9" strokeWidth={3}/>

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-//import io from "socket.io-client"
 
 const initialState = {
   users: [],
@@ -69,8 +68,6 @@ export const fetchUsers = () => {
 
 export const followUser = (userName) => {
   return (dispatch) => {
-    console.log(userName);
-    //console.log(localStorage.getItem('accessToken'))
     fetch("https://happyhabits.herokuapp.com/followuser", {
       method: "POST",
       headers: {
@@ -80,16 +77,14 @@ export const followUser = (userName) => {
       body: JSON.stringify({ name: userName }),
     })
       .then((res) => res.json())
-      .then((userArray) => {
-        dispatch(user.actions.setFollowedUsers(userArray.followedUsers));
-      });
+      // .then((userArray) => {
+      //   dispatch(user.actions.setFollowedUsers(userArray.followedUsers));
+      // });
   };
 };
 
 export const unfollowUser = (userName) => {
   return (dispatch) => {
-    console.log(userName);
-    //console.log(localStorage.getItem('accessToken'))
     fetch("https://happyhabits.herokuapp.com/followuser", {
       method: "PUT",
       headers: {

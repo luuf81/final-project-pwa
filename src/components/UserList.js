@@ -1,28 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { fetchUsers, user } from "../reducers/user";
-import { fetchActivities, postActivity, workout } from "../reducers/workout";
+import React, { useEffect } from "react";
+import { fetchFollowed, fetchUsers } from "../reducers/user";
 import { followUser, unfollowUser } from "../reducers/user";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchWorkouts } from "../reducers/workout";
 import {
   Avatar,
   Badge,
-  Box,
-  Card,
-  CardContent,
   IconButton,
-  Typography,
-  Paper,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
+  Typography
 } from "@material-ui/core";
 import { PersonAdd, People } from "@material-ui/icons";
-import io from "socket.io-client";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -55,15 +42,18 @@ const StyledBadge = withStyles((theme) => ({
 
 export const UserList = () => {
   const dispatch = useDispatch();
-  const activities = useSelector((store) => store.workout.activities);
   const currentUser = useSelector((store) => store.user.login);
-  const workouts = useSelector((store) => store.workout.workouts);
   const users = useSelector((store) => store.user.users);
   const onlineUsers = useSelector((store) => store.user.onlineUsers);
+  const followedUsers = useSelector((store) => store.user.login.followedUsers);
 
   useEffect(() => {
     dispatch(fetchUsers());
   }, [onlineUsers]);
+
+  useEffect(() => {
+    dispatch(fetchFollowed());
+  }, [followedUsers]);
 
   const handleFollowUser = (userName) => {
     dispatch(followUser(userName));

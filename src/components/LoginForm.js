@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { user } from "../reducers/user";
 import {
+  Paper,
   Container,
   Button,
   Grid,
   TextField,
-  FormControl,
+  Typography
 } from "@material-ui/core";
 const SIGNUP_URL = "https://happyhabits.herokuapp.com/users";
 const LOGIN_URL = "https://happyhabits.herokuapp.com/sessions";
@@ -15,7 +16,6 @@ const LOGIN_URL = "https://happyhabits.herokuapp.com/sessions";
 export const LoginForm = () => {
   
   const dispatch = useDispatch();
-  const accessToken = useSelector((store) => store.user.login.accessToken);
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -65,6 +65,7 @@ export const LoginForm = () => {
   // If user is logged out, show login form
   return (
     <Container maxWidth="xs">
+      <Paper elevation={0} style={{backgroundColor:"#333333"}}>
       <Grid
         container
         direction="column"
@@ -72,6 +73,7 @@ export const LoginForm = () => {
         justify="center"
         style={{ minHeight: "100vh" }}
       >
+        <Typography variant="h3">Happy Habits</Typography>
         <TextField
           label="Username"
           fullWidth
@@ -87,9 +89,9 @@ export const LoginForm = () => {
           fullWidth
           variant="outlined"
           required
+          type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          color="secondary"
         />
         <Button
           type="submit"
@@ -110,6 +112,7 @@ export const LoginForm = () => {
           Login
         </Button>
       </Grid>
+      </Paper>
     </Container>
   );
 };

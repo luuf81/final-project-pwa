@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Paper, Snackbar } from "@material-ui/core";
-import { user } from "./reducers/user";
+import { Snackbar } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
 export const UserOnline = () => {
@@ -12,7 +11,6 @@ export const UserOnline = () => {
      useEffect(() => {
          if(userOnline) 
            setOpen(true)
-           
      }, [userOnline])
 
 
